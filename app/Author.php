@@ -14,10 +14,6 @@ class Author extends Model
      * @var array
      */
 
-     protected $hidden = [
-         "pivot"
-     ];
-
     protected $fillable = [
         'name',
         'surname',
