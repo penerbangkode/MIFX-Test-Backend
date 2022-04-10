@@ -16,30 +16,16 @@ class BookResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "data" => array_map(function ($book) {
-                $review = [
-                    "count" => (int) round($book["reviews_count"]),
-                    "avg" => (int) round($book["avg_review"])
-                ];
-                unset($book["avg_review"]);
-                unset($book["reviews_count"]);
-                return  array_merge($book->toArray(), ["review" => $review]);;
-            }, $this->items()),
-            "links" => [
-                "first" => $this->url(1),
-                "last" => $this->url($this->lastPage()),
-                "prev" => $this->previousPageUrl(),
-                "next" => $this->nextPageUrl()
+            "id" => $this->id,
+            "isbn" => $this->isbn,
+            "title" => $this->title,
+            "description" => $this->description,
+            "published_year" => $this->published_year,
+            "authors" => $this->authors,
+            "review" => [
+                "avg" => (int) round($this->avg_review),
+                "count" =>(int) round($this->reviews_count),
             ],
-            "meta" => [
-                "current_page" => $this->currentPage(),
-                "from" => $this->firstItem(),
-                "last_page" => $this->lastPage(),
-                "path" => $this->path(),
-                "per_page" => $this->perPage(),
-                "to" => $this->lastItem(),
-                "total" => $this->total()
-            ]
         ];
     }
 }

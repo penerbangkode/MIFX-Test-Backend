@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Response;
 
 class PostBookRequest extends FormRequest
 {
@@ -23,9 +24,13 @@ class PostBookRequest extends FormRequest
      */
     public function rules()
     {
-        // @TODO implement
         return [
-            //
+            "isbn" => "required|size:13|unique:books,isbn",
+            "title" => "required",
+            "description" => "required",
+            "authors" => "required|array",
+            "authors.*" => "required|exists:authors,id",
+            "published_year" => "required|integer|min:1900|max:2020",
         ];
     }
 }
