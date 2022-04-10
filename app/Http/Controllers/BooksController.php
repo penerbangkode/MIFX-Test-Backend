@@ -27,7 +27,7 @@ class BooksController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 "error" => $validator->errors()
-            ], Response::HTTP_BAD_REQUEST);
+            ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
         
         $books = Book::withCount([
